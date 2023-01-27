@@ -4,7 +4,7 @@ pipeline {
         stage('build') {
         steps {
           echo "building is done"
-          sh "mvn clean"
+          isUnix("mvn clean")
         } 
         }
         stage('test') {
@@ -14,7 +14,7 @@ pipeline {
        } 
         }
         stage('compile') {
-        steps {
+        steps {sh "mvn clean"
           echo "compiling is done"
           sh "mvn compile"
        } 
