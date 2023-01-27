@@ -4,19 +4,19 @@ pipeline {
         stage('build') {
         steps {
           echo "building is done"
-          isUnix()
+          sh ''' mvn clean'''
         } 
         }
         stage('test') {
         steps {
           echo "testing is done"
-          sh "mvn test"
+          sh '''mvn test'''
        } 
         }
         stage('compile') {
         steps {sh "mvn clean"
           echo "compiling is done"
-          sh "mvn compile"
+          sh '''mvn compile'''
        } 
         }
         stage('deploy') {
