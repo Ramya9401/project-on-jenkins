@@ -20,10 +20,8 @@ return count;
 
 int main()
 {
-char s[100];
+char s[100]="ramya";
 int count;
-printf("enter the string:");
-scanf("%[^\n]s",s);
 for(int i=0;s[i]!='\0';i++)
 {
 if(s[i]>=65&&s[i]<=90)
