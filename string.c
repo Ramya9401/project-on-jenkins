@@ -20,7 +20,7 @@ return count;
 
 int main()
 {
-char s[100]="ramya";
+char s[100]="ramy";
 int count;
 for(int i=0;s[i]!='\0';i++)
 {
