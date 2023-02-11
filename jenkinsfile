@@ -23,8 +23,8 @@ pipeline{
             steps{
                 withCredentials([usernameColonPassword(credentialsId: 'dockerHub', variable: 'dockerHubUser')]) {
     
-                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                sh 'docker push mummadiramya/mav-project:latest'
+                sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                sh 'sudo docker push mummadiramya/mav-project:latest'
                 }
             }
         }
