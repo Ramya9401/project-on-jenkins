@@ -1,28 +1,32 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage('build') {
-        steps {
-          echo "building is done"
-          sh ''' mvn clean'''
-        } 
+    stages{
+        stage('build')
+        {
+            steps{
+                git 'https://github.com/Ramya9401/project-on-jenkins.git'
+                
+                sh 'mvn clean install'
+            }
         }
-        stage('test') {
-        steps {
-          echo "testing is done"
-          sh '''mvn test'''
-       } 
+        stage('build docker image')
+        {
+            steps{
+                script{
+                sh 'sudo docker build -t mummadiramya/mav-project:latest .'
+                }
+            }
+            
         }
-        stage('compile') {
-        steps {sh "mvn clean"
-          echo "compiling is done"
-          sh '''mvn compile'''
-       } 
-        }
-        stage('deploy') {
-        steps {
-          echo "deploying is done"
-       } 
+        stage('docker build')
+        {
+            steps{
+                withCredentials([usernameColonPassword(credentialsId: 'dockerHub', variable: 'dockerHubUser')]) {
+    
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                sh 'docker push mummadiramya/mav-project:latest'
+                }
+            }
         }
     }
 }
