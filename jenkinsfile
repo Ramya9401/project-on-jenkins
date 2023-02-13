@@ -21,7 +21,7 @@ pipeline{
         stage('docker build')
         {
             steps{
-                sh "sudo docker login -u ${env.mummadiramya} -p ${env.Ammaramya@123}"
+                sh "sudo docker login -u="$mummadiramya" -p="$Ammaramya@123"
                 sh 'sudo docker push mummadiramya/mav-project:latest'
                 
             }
