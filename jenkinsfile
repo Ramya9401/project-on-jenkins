@@ -21,7 +21,7 @@ pipeline{
         stage('docker build')
         {
             steps{
-                sh "sudo docker login -u="$mummadiramya" --password-stdin
+                sh "sudo docker login --username "mummadiramya" --password-stdin
                 sh 'sudo docker push mummadiramya/mav-project:latest'
                 
             }
