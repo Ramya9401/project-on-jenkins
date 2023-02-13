@@ -21,9 +21,9 @@ pipeline{
         stage('docker build')
         {
             steps{
-                withCredentials([usernamePassword(credentialsId: 'dockerHub',passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-    
-                sh "sudo docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'password', usernameVariable: 'username')]) {
+   
+                sh "sudo docker login -u ${env.username} -p ${env.password}"
                 sh 'sudo docker push mummadiramya/mav-project:latest'
                 }
             }
