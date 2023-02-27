@@ -1,5 +1,8 @@
 pipeline{
     agent any
+    environment {
+    DOCKERHUB_CREDENTIALS = credentials('dockerHub')
+  }
     stages{
         stage('build')
         {
@@ -9,13 +12,15 @@ pipeline{
                 sh 'mvn clean install'
             }
         }
+        stage('Login') {
+      steps {
+        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+      }
+    }
         stage('build docker image')
         {
             steps{
                 script{
-                 withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'password', usernameVariable: 'username')]) {
-                sh 'sudo docker login -u ${env.username} -p ${env.password}'
-                }
                 sh 'sudo docker build  -t mummadiramya/mav-project:latest .'
                 
                 }
@@ -25,9 +30,6 @@ pipeline{
         stage('docker build')
         {
             steps{
-            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'password', usernameVariable: 'username')]) {
-                sh 'sudo docker login -u ${env.username} -p ${env.password}'
-                }
                 sh 'sudo docker push mummadiramya/mav-project:latest'
                 
             }
