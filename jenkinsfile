@@ -13,7 +13,10 @@ pipeline{
         {
             steps{
                 script{
-                sh 'sudo docker -S build  -t mummadiramya/mav-project:latest .'
+                 withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'password', usernameVariable: 'username')]) {
+                sh 'sudo docker login -u ${env.username} -p ${env.password}'
+                }
+                sh 'sudo docker build  -t mummadiramya/mav-project:latest .'
                 
                 }
             }
@@ -22,10 +25,11 @@ pipeline{
         stage('docker build')
         {
             steps{
-            withCredentials([usernameColonPassword(credentialsId: 'dockerHub', variable: 'dockerhub')]) {
-                sh 'sudo docker login -u ${env.variable} -p ${env.variable}'
-                sh 'sudo docker push mummadiramya/mav-project:latest'
+            withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'password', usernameVariable: 'username')]) {
+                sh 'sudo docker login -u ${env.username} -p ${env.password}'
                 }
+                sh 'sudo docker push mummadiramya/mav-project:latest'
+                
             }
         }
     }
