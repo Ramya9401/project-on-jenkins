@@ -17,6 +17,7 @@ pipeline{
                 sh 'sudo docker login -u ${env.variable} -p ${env.variable}'
                 sh 'sudo docker build -t mummadiramya/mav-project:latest .'
                 }
+                }
             }
             
         }
