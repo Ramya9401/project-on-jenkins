@@ -14,26 +14,39 @@ pipeline{
         }
         stage('Login') {
       steps {
-        sh 'docker login -u mummadiramya'
-        echo "$DOCKERHUB_CREDENTIALS_PSW" 
+        sh 'docker login -u mummadiramya |echo "$DOCKERHUB_CREDENTIALS_PSW"' 
       }
     }
         stage('build docker image')
         {
             steps{
                 script{
-                sh 'docker build  -t mummadiramya/mav-project:latest .'
+                sh 'docker build -t mummadiramya/jenkins-project:latest .'
                 
                 }
             }
             
         }
+        stage('docker logout')
+        {
+            steps{
+                sh 'docker logout'
+            }
+        }
+        stage('login again')
+        {
+            steps{
+                sh 'docker login -u mummadiramya | echo "$DOCKERHUB_CREDENTIALS_PSW"'
+            }   
+        }
+        
         stage('docker build')
         {
             steps{
-                sh 'docker push mummadiramya/mav-project:latest'
+                sh 'docker push mummadiramya/jenkins-project:latest | echo "password"'
                 
             }
         }
     }
 }
+
