@@ -13,7 +13,7 @@ pipeline{
         {
             steps{
                 script{
-                sh 'sudo docker build -S -t mummadiramya/mav-project:latest .'
+                sh 'sudo docker -S build  -t mummadiramya/mav-project:latest .'
                 
                 }
             }
