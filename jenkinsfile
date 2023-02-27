@@ -21,7 +21,7 @@ pipeline{
         {
             steps{
                 script{
-                sh 'docker build -t mummadiramya/jenkins-project:latest .'
+                sh 'docker build -t mummadiramya/jenkins-project:1 .'
                 
                 }
             }
@@ -43,7 +43,7 @@ pipeline{
         stage('docker build')
         {
             steps{
-                sh 'docker push mummadiramya/jenkins-project:latest | echo "password"'
+                sh 'docker push mummadiramya/jenkins-project:1 | echo "password"'
                 
             }
         }
