@@ -36,14 +36,14 @@ pipeline{
         stage('login again')
         {
             steps{
-                sh 'sudo docker login -u mummadiramya |echo "password" | echo "$DOCKERHUB_CREDENTIALS_PSW"'
+                sh 'docker login -u mummadiramya |echo "$DOCKERHUB_CREDENTIALS_PSW"'
             }   
         }
         
         stage('docker build')
         {
             steps{
-                sh 'sudo docker push mummadiramya/test:1 | echo "password"'
+                sh 'docker push mummadiramya/test:1 | echo "password"'
                 
             }
         }
