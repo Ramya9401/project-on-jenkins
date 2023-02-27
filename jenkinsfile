@@ -21,7 +21,7 @@ pipeline{
         {
             steps{
                 script{
-                sh 'sudo docker build -t mummadiramya/test:1 .'
+                sh 'docker build -t mummadiramya/test:1 .'
                 
                 }
             }
@@ -30,13 +30,13 @@ pipeline{
         stage('docker logout')
         {
             steps{
-                sh 'sudo docker logout'
+                sh 'docker logout'
             }
         }
         stage('login again')
         {
             steps{
-                sh 'sudo docker login -u mummadiramya | echo "$DOCKERHUB_CREDENTIALS_PSW"'
+                sh 'sudo docker login -u mummadiramya |echo "password" | echo "$DOCKERHUB_CREDENTIALS_PSW"'
             }   
         }
         
